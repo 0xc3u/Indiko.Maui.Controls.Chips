@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+		<!-- NuGet -->
+		<Authors>INDIKO</Authors>
+		<Copyright>Copyright © INDIKO and contributors</Copyright>
+		<IsPackable>True</IsPackable>
+		<PackageProjectUrl>https://github.com/0xc3u/Indiko.Maui.Controls.Chips</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/0xc3u/Indiko.Maui.Controls.Chips</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>dotnet-maui;maui;ui;chips;control;</PackageTags>
+		<IncludeSymbols>True</IncludeSymbols>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<Title>INDIKO .NET MAUI chips View</Title>
+		<Description>The `chipsView` component is a versatile and customizable chips renderer designed for MAUI.NET applications.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<DebugType>portable</DebugType>
+		<PackageIcon>icon.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.7" />
+	  <PackageReference Include="SkiaSharp.Views.Maui.Core" Version="2.88.7" />
+	  <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
+	  <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\Indiko.Maui.Controls.chips\icon.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	  <Folder Include="Platforms\Android\" />
+	  <Folder Include="Platforms\iOS\" />
+	  <Folder Include="Platforms\MacCatalyst\" />
+	  <Folder Include="Platforms\Tizen\" />
+	  <Folder Include="Platforms\Windows\" />
+	</ItemGroup>
+
+</Project>

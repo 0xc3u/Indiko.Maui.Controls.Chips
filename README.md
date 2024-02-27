@@ -27,10 +27,6 @@ The `ChipsView` component offers several bindable properties to customize the Ch
 
 - `ItemSource`: The collection of items to be displayed as chips.
 - `SelectedItems`: The collection of selected items within the chips.
-- `DisplayMemberPath`: Specifies the property path to display in the chip text.
-- `IsSelectable`: Determines whether chips can be selected.
-
-
 
 ### Platform supported
 

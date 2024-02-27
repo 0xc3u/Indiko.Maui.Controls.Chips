@@ -9,7 +9,7 @@ Enhance your MAUI.NET applications with a flexible, customizable ChipsView compo
 ## Install Controls
 [![NuGet](https://img.shields.io/nuget/v/Indiko.Maui.Controls.Chips.svg?label=NuGet)](https://www.nuget.org/packages/Indiko.Maui.Controls.Chips/)
 
-Available on [NuGet](http://www.nuget.org/packages/Indiko.Maui.Controls.Chips.Chips).
+Available on [NuGet](http://www.nuget.org/packages/Indiko.Maui.Controls.Chips).
 
 Install with the dotnet CLI: `dotnet add package Indiko.Maui.Controls.Chips`, or through the NuGet Package Manager in Visual Studio.
 

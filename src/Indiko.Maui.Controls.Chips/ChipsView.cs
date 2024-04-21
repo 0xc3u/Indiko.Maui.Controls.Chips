@@ -24,9 +24,28 @@ public class ChipsView : FlexLayout
         set => SetValue(SelectedItemsProperty, value);
     }
 
+    public static readonly BindableProperty SizeProperty =
+     BindableProperty.Create(nameof(Size), typeof(double), typeof(ChipsView), defaultValue: 25d);
+
+    public double Size
+    {
+        get => (double)GetValue(SizeProperty);
+        set => SetValue(SizeProperty, value);
+    }
+
+    public static readonly BindableProperty SpacingProperty =
+    BindableProperty.Create(nameof(Spacing), typeof(double), typeof(ChipsView), defaultValue: 2d);
+
+    public double Spacing
+    {
+        get => (double)GetValue(SpacingProperty);
+        set => SetValue(SpacingProperty, value);
+    }
+
+
     public ChipsView()
     {
-        SelectedItems = new ObservableCollection<ChipItem>();
+        SelectedItems = [];
     }
 
     private static void OnItemSourceChanged(BindableObject bindable, object oldValue, object newValue)
@@ -60,11 +79,12 @@ public class ChipsView : FlexLayout
         {
             var grid = new Grid
             {
-                RowDefinitions =
-            {
-                new RowDefinition {Height = 20}
-            },
-                ColumnSpacing = 10
+                RowDefinitions = {
+                    new RowDefinition {Height = Size}
+                },
+                ColumnSpacing = 10,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center
             };
 
             if (chip.Icon != null || chip.IsCloseable)
@@ -90,7 +110,9 @@ public class ChipsView : FlexLayout
                 {
                     Source = chip.Icon,
                     WidthRequest = 16,
-                    HeightRequest = 16
+                    HeightRequest = 16,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
                 };
                 icon.GestureRecognizers.Add(selectedTapGestureRecognizer);
                 Grid.SetColumn(icon, 0);
@@ -100,8 +122,13 @@ public class ChipsView : FlexLayout
             var label = new Label
             {
                 Text = chip.Text,
-                TextColor = chip.TextColor,
-                FontAutoScalingEnabled = true
+                TextColor = chip.IsSelected ? chip.SelectedTextColor : chip.TextColor,
+                FontSize = chip.FontSize,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalTextAlignment = TextAlignment.Start,
+                VerticalTextAlignment = TextAlignment.Center,
+                FontAttributes = chip.IsSelected ? FontAttributes.Bold : FontAttributes.None
             };
             label.GestureRecognizers.Add(selectedTapGestureRecognizer);
 
@@ -142,8 +169,11 @@ public class ChipsView : FlexLayout
                     var closeIcon = new Image
                     {
                         Source = chip.CloseIcon,
-                        WidthRequest = 16,
-                        HeightRequest = 16
+                        WidthRequest = Math.Abs(Size / 2),
+                        HeightRequest = Math.Abs(Size / 2),
+                        HorizontalOptions = LayoutOptions.Center,
+                        VerticalOptions = LayoutOptions.Center,
+                        Aspect = Aspect.AspectFit
                     };
                     closeIcon.GestureRecognizers.Add(closeTapGestureRecognizer);
                     Grid.SetColumn(closeIcon, 2);
@@ -153,9 +183,9 @@ public class ChipsView : FlexLayout
                 {
                     var closeView = new XSymbolView
                     {
-                        LineColor = chip.TextColor,
-                        WidthRequest = 12,
-                        HeightRequest = 12,
+                        LineColor = chip.IsSelected ? chip.SelectedTextColor : chip.TextColor,
+                        WidthRequest = chip.FontSize,
+                        HeightRequest = chip.FontSize,
                         HorizontalOptions = LayoutOptions.Center,
                         VerticalOptions = LayoutOptions.Center
                     };
@@ -171,9 +201,12 @@ public class ChipsView : FlexLayout
                 CornerRadius = chip.CornerRadius,
                 BorderColor = chip.BorderColor,
                 BackgroundColor = chip.IsSelected ? chip.SelectedBackgroundColor : chip.BackgroundColor,
-                Margin = 2,
-                Padding = 4,
-                HeightRequest = 26
+                Margin = new Thickness(Spacing),
+                Padding = new Thickness(5),
+                HeightRequest = Size,
+                HorizontalOptions = LayoutOptions.Start,
+                VerticalOptions = LayoutOptions.Center,
+                HasShadow = false
             };
 
             if (chip.IsDisabled)

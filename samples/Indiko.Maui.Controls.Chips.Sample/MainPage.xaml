@@ -13,9 +13,9 @@
 
             <Label Text="Chips View" FontSize="Header" TextColor="{StaticResource Primary}"></Label>
 
-            <idk:ChipsView ItemSource="{Binding Chips}" 
-                   AlignContent="Start"
-                   JustifyContent="Start" Wrap="Wrap" />
+            <idk:ChipsView AlignContent="Start" ItemSource="{Binding Chips}" Size="30" Spacing="2"
+                   JustifyContent="Start" Wrap="Wrap">
+            </idk:ChipsView>
 
         </VerticalStackLayout>
     </ScrollView>

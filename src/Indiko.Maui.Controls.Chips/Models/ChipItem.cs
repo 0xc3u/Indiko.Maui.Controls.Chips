@@ -22,6 +22,14 @@ public class ChipItem : BindableObject
         set => SetValue(TextColorProperty, value);
     }
 
+    public static readonly BindableProperty SelectedTextColorProperty =
+        BindableProperty.Create(nameof(SelectedTextColor), typeof(Color), typeof(ChipItem), defaultValue: Colors.Black);
+    public Color SelectedTextColor
+    {
+        get => (Color)GetValue(SelectedTextColorProperty);
+        set => SetValue(SelectedTextColorProperty, value);
+    }
+
     public static readonly BindableProperty BackgroundColorProperty =
        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ChipItem), defaultValue: Colors.CornflowerBlue);
     public Color BackgroundColor
@@ -69,6 +77,18 @@ public class ChipItem : BindableObject
     {
         get => (float)GetValue(BorderSizeProperty);
         set => SetValue(BorderSizeProperty, value);
+    }
+
+    // FontSize
+
+    public static readonly BindableProperty FontSizeProperty =
+        BindableProperty.Create(nameof(FontSize), typeof(double), typeof(ChipItem), defaultValue: 18d);
+
+    [System.ComponentModel.TypeConverter(typeof(FontSizeConverter))]
+    public double FontSize
+    {
+        get => (double)GetValue(FontSizeProperty);
+        set => SetValue(FontSizeProperty, value);
     }
 
     // Icon
